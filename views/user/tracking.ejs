@@ -1,0 +1,159 @@
+
+
+<div class="st-appointment-areasa">
+   
+    <div class="containers">
+        <article class="card">
+            <!-- <header class="card-header"> My Orders / Tracking </header> -->
+            <div class="card-body pb-5">
+                <h5 id="invoice-number">Invoice Number: </h5>
+                <article class="card">
+                    <div class="card-body row">
+                        <div class="col black" id="box"> 
+                            <!-- Data will be inserted here -->
+                        </div>
+                        <div class="col black" id="location"> 
+                            <!-- Data will be inserted here -->
+                        </div>
+                       
+                        <div class="col black" id="receiver-address"> 
+                            <!-- Data will be inserted here -->
+                        </div>
+                        <div class="col black" id="comment"> 
+                            <!-- Data will be inserted here -->
+                        </div>
+                    </div>
+                </article>
+               <div id="tracker">
+
+               </div>
+               
+               
+            </div>
+        </article>
+    </div>
+        
+        <script>
+            var datas = JSON.parse('<%- data %>');
+            var address = JSON.parse('<%- adress %>');
+            console.log(datas,"Daaa");
+    
+            document.getElementById('invoice-number').innerHTML = `Invoice Number: ${address.invoice_number}`;
+            
+        document.getElementById('receiver-address').innerHTML = `<strong>Receiver Address:</strong> <br>
+            ${address.receiver_name} ${address.receiver_address}, ${address.receiver_city_name}, ${address.receiver_state}, 
+            ${address.receiver_district}, ${address.receiver_zip_code}, ${address.receiver_country}`;
+    
+        document.getElementById('location').innerHTML = `<strong>Location:</strong> <br>
+            ${address.receiver_city_name}, ${address.receiver_state}, ${address.receiver_country}, ${address.receiver_zip_code}`;
+    
+        document.getElementById('box').innerHTML = `<strong>Box:</strong> <br> ${address.receiver_boxes}`;
+    
+        document.getElementById('comment').innerHTML = `<strong>Comment:</strong> <br> ${address.receiver_comment}`;
+    
+            console.log(address ,datas,"address");
+           
+    
+            const statusOrder = [
+                "Enquiry collected",
+                "Shipment booked",
+                "Shipment received",
+                "Shipment forwarded",
+                "Shipment arrived",
+                "Waiting for clearance",
+                "Shipment cleared",
+                "Out for Delivery",
+                "Delivery arranged",
+            ];
+        
+            const conditionalStatuses = [
+                { primary: "Waiting for clearance", secondary: "Shipment on hold" },
+                { primary: "Out for Delivery", secondary: "Pending" },
+                { primary: "Delivery arranged", secondary: "Not Delivered" }
+            ];
+        
+            async function fetchStatus() {
+                try {
+                    const trackingContainer = document.getElementById('tracker');
+                    trackingContainer.innerHTML = ''; // Clear previous tracking cards
+        
+                    datas.forEach((order, index) => {
+                        const trackingCard = createTrackingCard(order, index + 1);
+                        trackingContainer.appendChild(trackingCard);
+                    });
+        
+                } catch (error) {
+                    console.error('Error fetching status:', error);
+                }
+            }
+        
+            function createTrackingCard(order, index) {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                card.id = `tracking${index}`;
+        
+                const completedStatuses = order.statuses.map(status => status.status.trim());
+                let latestCompletedIndex = -1;
+        
+                // Determine the index of the latest completed status
+                completedStatuses.forEach(status => {
+                    const currentIndex = statusOrder.indexOf(status);
+                    if (currentIndex > latestCompletedIndex) {
+                        latestCompletedIndex = currentIndex;
+                    }
+                });
+        
+                let statusHTML = '';
+                statusOrder.forEach((status, statusIndex) => {
+                    let isStatusVisible = true;
+        
+                    // Check if we should display primary or secondary from conditional pairs
+                    for (const { primary, secondary } of conditionalStatuses) {
+                        if (status === primary && completedStatuses.includes(secondary)) {
+                            isStatusVisible = false;
+                            break;
+                        }
+                    }
+        
+                    if (isStatusVisible) {
+                        const isCompleted = statusIndex <= latestCompletedIndex;
+                        const statusClass = isCompleted ? 'step active' : 'step';
+                        const matchingStatus = order.statuses.find(s => s.status.trim() === status);
+        
+                        statusHTML += `
+                              <div class="${statusClass}">
+                <span class="icon"> <i class="bi ${isCompleted ? 'bi-check' : 'bi-box'}"></i> </span>
+                <span class="text">${status}</span>
+                <span class="text">${matchingStatus ? matchingStatus.date : ''}</span>
+                <span class="text">${matchingStatus && matchingStatus.comment ? matchingStatus.comment : ''}</span>
+              </div>`;
+                    }
+                });
+        
+                const firstStatusDate = Array.isArray(order.statuses) ? order.statuses[0].date : order.date;
+        
+                card.innerHTML = `
+                    
+                         
+                            <h6>Box Number: ${order.box_names}</h6>
+                            <div class="track p-5">
+                         ${statusHTML}
+                          </div>
+                           
+                `;
+        
+                return card;
+            }
+        
+            // Fetch the status when the page loads
+            window.onload = () => fetchStatus();
+        </script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
