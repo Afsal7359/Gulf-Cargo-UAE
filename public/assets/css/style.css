@@ -427,7 +427,7 @@ p {
 .st__logo__overlay::before {
   position: absolute;
   content: "";
-  top: -25px;
+  top: -9px;
   left: -44px;
   background: #fff;
   width: 26%;
