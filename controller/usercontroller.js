@@ -45,7 +45,7 @@ module.exports={
         try {
             const trackingid = req.body.trackingid;
             console.log(trackingid, "id");
-            const response = await fetch('https://gulfcargoksa.cyenosure.co.in/api/tracking', {
+            const response = await fetch('https://gulfcargodubai.cyenosure.co.in/api/tracking', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
