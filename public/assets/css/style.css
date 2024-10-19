@@ -38,8 +38,8 @@ Text Domain: Logistcwr
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap');
 
 :root{
-  --st-theme-color-one:#f68b21;
-  --st-theme-color-two:#003d4d;
+  --st-theme-color-one:#ed1c23;
+  --st-theme-color-two:#28235f;
   --st-theme-body-color:#525459;
   --st-theme-color-white:#fff;
   --st-testi-bg:#1d1d1d;
@@ -2735,6 +2735,8 @@ button.st__btn {
 .ft_borer {
   border-bottom: 1px dashed var(--st-theme-color-one);
   padding-bottom: 121px;
+  border-top: 1px dashed var(--st-theme-color-one) ;
+  padding-top: 65px;
 }
 .st__footer__text p {
   color: var(--st-theme-color-white);

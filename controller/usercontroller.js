@@ -52,7 +52,7 @@ module.exports={
                 },
                 body: JSON.stringify({ booking_no: trackingid })
             });
-    console.log(response,'reeeee');
+             console.log(response,'reeeee');
     
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);

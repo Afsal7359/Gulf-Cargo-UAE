@@ -24,7 +24,7 @@ module.exports={
         try {
             const data = req.body;
             await Contact.create(data)
-            res.redirect("/contact");
+            res.redirect("/");
             console.log("Contact Added Succesfully");
             const mailOptions = {
                 from: process.env.EMAIL_USER,
