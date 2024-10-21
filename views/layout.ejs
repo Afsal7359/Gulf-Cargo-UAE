@@ -95,26 +95,43 @@
             background-color: #0056b3;
         }
 
-        .close-btn {
-            background-color: #dc3545;
-            color: #fff;
-        }
+        .modal-content {
+    position: relative;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-        .close-btn:hover {
-            background-color: #c82333;
-        }
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 35px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #ff0000;
+}
+
     </style>
 </head>
 <body>
-	 <!-- Add this right after your body tag -->
-	 <div id="bookingModal" class="modal-overlay">
+	<div id="bookingModal" class="modal-overlay">
         <div class="modal-content">
-            <h3>Welcome to Otex Gulf Cargo!</h3>
-            <p>Would you like to make a booking now?</p>
-            <button id="bookNowBtn" class="book-now-btn">Book Now</button>
-            <button id="closeModalBtn" class="close-btn">Close</button>
+            <span id="closeModalBtn" class="close-btn">×</span>
+            <img src="assets/images/new/popup.jpg" alt="">
         </div>
     </div>
+    
 <!-- pre loader area start -->
 <div id="loading" style="background-color: #fff;">
 	<div id="loading-center">
@@ -147,37 +164,44 @@
 
 <script src="assets/js/vendor/jquery-3.6.2.min.js"></script>
 
-<!-- <script>
-	$(document).ready(function() {
-		// Check if the popup has already been shown
-		if (!localStorage.getItem('popupShown')) {
-			// Show modal after a slight delay
-			setTimeout(function() {
-				$('#bookingModal').addClass('active');
-			}, 1000); // 1 second delay
+<script>
+$(document).ready(function() {
+    // Get the current time
+    var currentTime = new Date().getTime();
 
-			// Set a flag in localStorage to prevent showing it again
-			localStorage.setItem('popupShown', 'true');
-		}
+    // Check if the last shown time is stored in localStorage
+    var lastPopupTime = localStorage.getItem('lastPopupTime');
 
-		// Close modal when close button is clicked
-		$('#closeModalBtn').click(function() {
-			$('#bookingModal').removeClass('active');
-		});
+    // If there's no time stored or more than 24 hours have passed, clear the storage and show the popup
+    if (!lastPopupTime || currentTime - lastPopupTime > 24 * 60 * 60 * 1000) {
+        localStorage.clear(); // Clear all stored data
+        setTimeout(function() {
+            $('#bookingModal').addClass('active');
+        }, 1000); // Show modal after 1 second delay
 
-		// Handle Book Now button click
-		$('#bookNowBtn').click(function() {
-			window.location.href = '/booking';
-		});
+        // Update the last popup time in localStorage
+        localStorage.setItem('lastPopupTime', currentTime);
+    }
 
-		// Close modal when clicking outside
-		$('#bookingModal').click(function(e) {
-			if (e.target === this) {
-				$(this).removeClass('active');
-			}
-		});
-	});
-</script> -->
+    // Close modal when close button is clicked
+    $('#closeModalBtn').click(function() {
+        $('#bookingModal').removeClass('active');
+    });
+
+    // Handle Book Now button click
+    $('#bookNowBtn').click(function() {
+        window.location.href = '/booking';
+    });
+
+    // Close modal when clicking outside
+    $('#bookingModal').click(function(e) {
+        if (e.target === this) {
+            $(this).removeClass('active');
+        }
+    });
+});
+
+</script>
 
 <!-- Then load all other scripts -->
 <script src="assets/js/bootstrap.min.js"></script>
