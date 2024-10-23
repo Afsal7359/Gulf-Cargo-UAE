@@ -14,7 +14,7 @@ body {
     font-weight: 400;
     line-height: 28px;
 	transition: .5s;
-    font-family: 'Lexend', sans-serif;
+    font-family: 'robotoregular', sans-serif;
 }
 h1,
 h2,
@@ -23,7 +23,7 @@ h4,
 h5,
 h6 {
     color: var(--st-theme-color-two);
-    font-family: 'Lexend', sans-serif;
+    font-family: 'robotoregular', sans-serif;
     line-height: 24px;	
     font-weight: 600;
     -webkit-transition: .5s;

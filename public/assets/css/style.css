@@ -72,6 +72,33 @@ Text Domain: Logistcwr
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
 
+body {
+  font-family: 'robotoregular', sans-serif;
+}
+
+h1 {
+  font-family: 'robotoregular', sans-serif;
+  font-weight: bold;
+}
+h2 {
+  font-family: 'robotoregular', sans-serif;
+}
+h3 {
+  font-family: 'robotoregular', sans-serif;
+}
+h4 {
+  font-family: 'robotoregular', sans-serif;
+}
+h5 {
+  font-family: 'robotoregular', sans-serif;
+}
+h6 {
+  font-family: 'robotoregular', sans-serif;
+}
+
+p {
+  font-family: 'robotoregular', sans-serif;
+}
 
 .containers {
   margin-bottom: 50px;
